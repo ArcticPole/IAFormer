@@ -1,6 +1,6 @@
-# Multi-Person Pose Forecasting with Individual Interaction Perceptron and Prior Learning
-IAFormer
-European Conference on Computer Vision (ECCV2024)
+# Multi-Person Pose Forecasting with Individual Interaction Perceptron and Prior Learning (IAFormer)
+
+Accepted by European Conference on Computer Vision (ECCV2024)
 ## Overview
 Human Pose Forecasting is a major problem in human intention comprehension that can be addressed through learning the historical poses via deep methods. However, existing methods often lack the modeling of the person's role in the event in multi-person scenes. This leads to limited performance in complicated scenes with variant interactions happening at the same time. In this paper, we introduce the Interaction-Aware Pose Forecasting Transformer (IAFormer) framework to better learn the interaction features. With the key insight that the event often involves only part of the people in the scene, we designed the Interaction Perceptron Module (IPM) to evaluate the human-to-event interaction level. With the interaction evaluation, the human-independent features are extracted with the attention mechanism for interaction-aware forecasting. In addition, an Interaction Prior Learning Module (IPLM) is presented to learn and accumulate prior knowledge of high-frequency interactions, encouraging semantic pose forecasting rather than simple trajectory pose forecasting. We conduct experiments using datasets such as CMU-Mocap, UMPM, CHI3D, Human3.6M, and synthesized crowd datasets. The results demonstrate that our method significantly outperforms state-of-the-art approaches considering scenarios with varying numbers of people.
 
@@ -57,3 +57,9 @@ self.data=np.load('../Dataset/Mocap/test_3_75_mocap_umpm.npy')
 # self.data=np.load('../Dataset/Crowd/mix2_10persons.npy')
 ```
 ## Citation
+
+
+## Thanks
+[TBIFormer](https://github.com/xiaogangpeng/TBIFormer)
+
+[PGBIG](https://github.com/705062791/PGBIG)

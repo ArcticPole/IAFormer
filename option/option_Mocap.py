@@ -113,9 +113,9 @@ class Options:
         if makedir==True:
             if not os.path.isdir(ckpt):
                 os.makedirs(ckpt)
-                ou.save_options(self.opt, dataset="HM")
+                ou.save_options(self.opt, dataset="MO")
             self.opt.ckpt = ckpt
-            ou.save_options(self.opt, dataset="HM")
+            ou.save_options(self.opt, dataset="MO")
 
         self._print()
 

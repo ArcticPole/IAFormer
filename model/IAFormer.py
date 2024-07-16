@@ -80,7 +80,7 @@ class IAFormer(nn.Module):
 
         input = torch.matmul(self.dct, input_ori)
 
-        if self.dataset == "Panoptic" or self.dataset == "CHI3D":
+        if self.dataset == "Mocap" or self.dataset == "CHI3D":
             input = input
         elif self.dataset == "Human3.6M":
             input = input.unsqueeze(dim=1)
@@ -137,7 +137,7 @@ class IAFormer(nn.Module):
         loss = self.mix_loss(predic, gt) + self.w_cb * k_loss
 
 
-        if self.dataset == "Panoptic" or self.dataset == "CHI3D":
+        if self.dataset == "Mocap" or self.dataset == "CHI3D":
             return predic, loss
         elif self.dataset == "Human3.6M":
             return predic[:, 0, :, :], loss

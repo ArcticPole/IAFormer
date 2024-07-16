@@ -49,20 +49,7 @@ def save_csv_log(opt, head, value, is_create=False, file_name='train_log'):
 
 
 def save_ckpt(state, epo, dataset, opt=None, Isbest = False):
-    if dataset == "Panoptic":
-        # file_path = os.path.join(opt.ckpt, 'Pa_ckpt_last.pth.tar')
-        # torch.save(state, file_path)
-    # if epo ==24: # % 4 == 0 or epo>22 or epo<5:
-        if epo % 10 == 0:
-            file_path = os.path.join(opt.ckpt, 'Pa_ckpt_epo'+str(epo)+'.pth.tar')
-            torch.save(state, file_path)
-        if Isbest:
-            file_path = os.path.join(opt.ckpt, 'Pa_ckpt_best.pth.tar')
-            torch.save(state, file_path)
-    elif dataset == "Human3.6m":
-        # file_path = os.path.join(opt.ckpt, 'H36M_ckpt_last.pth.tar')
-        # torch.save(state, file_path)
-        # if epo ==24: # % 4 == 0 or epo>22 or epo<5:
+    if dataset == "Human3.6m":
         if epo % 10 == 0:
             file_path = os.path.join(opt.ckpt, 'H36M_ckpt_epo'+str(epo)+'.pth.tar')
             torch.save(state, file_path)
@@ -70,14 +57,18 @@ def save_ckpt(state, epo, dataset, opt=None, Isbest = False):
             file_path = os.path.join(opt.ckpt, 'H36M_ckpt_best.pth.tar')
             torch.save(state, file_path)
     elif dataset == "CHI3D":
-        # file_path = os.path.join(opt.ckpt, 'CHI_ckpt_last.pth.tar')
-        # torch.save(state, file_path)
-        # if epo ==24: # % 4 == 0 or epo>22 or epo<5:
         if epo % 10 == 0:
             file_path = os.path.join(opt.ckpt, 'CHI_ckpt_epo'+str(epo)+'.pth.tar')
             torch.save(state, file_path)
         if Isbest:
             file_path = os.path.join(opt.ckpt, 'CHI_ckpt_best.pth.tar')
+            torch.save(state, file_path)
+    else:
+        if epo % 10 == 0:
+            file_path = os.path.join(opt.ckpt, 'ckpt_epo'+str(epo)+'.pth.tar')
+            torch.save(state, file_path)
+        if Isbest:
+            file_path = os.path.join(opt.ckpt, 'ckpt_best.pth.tar')
             torch.save(state, file_path)
 
 
@@ -85,7 +76,7 @@ def save_options(opt, dataset):
     if dataset=='HM':
         with open(opt.ckpt + '/Human3.6M_option.json', 'w') as f:
             f.write(json.dumps(vars(opt), sort_keys=False, indent=4))
-    if dataset=='PA':
-        with open(opt.ckpt + '/Panoptic_option.json', 'w') as f:
+    else:
+        with open(opt.ckpt + '/option.json', 'w') as f:
             f.write(json.dumps(vars(opt), sort_keys=False, indent=4))
 
