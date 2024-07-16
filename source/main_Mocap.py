@@ -62,7 +62,7 @@ def main(opt):
 
     print('>>> MODEL >>>')
     if opt.model == 'IAFormer':
-        net_pred = model.IAFormer(seq_len=opt.seq_len, d_model=opt.d_model, opt=opt, num_kpt=nb_kpts, dataset="CHI3D")
+        net_pred = model.IAFormer(seq_len=opt.seq_len, d_model=opt.d_model, opt=opt, num_kpt=nb_kpts, dataset="Mocap")
 
     net_pred.cuda()
     lr_now = opt.lr_now
@@ -73,9 +73,9 @@ def main(opt):
         if '.pth.tar' in opt.ckpt:
             model_path_len = opt.ckpt
         elif opt.test_epoch is not None:
-            model_path_len = '{}/CHI_ckpt_epo{}.pth.tar'.format(opt.ckpt, opt.test_epoch)
+            model_path_len = '{}/ckpt_epo{}.pth.tar'.format(opt.ckpt, opt.test_epoch)
         else:
-            model_path_len = './{}/CHI_ckpt_best.pth.tar'.format(opt.ckpt)
+            model_path_len = './{}/ckpt_best.pth.tar'.format(opt.ckpt)
 
         print(">>> loading ckpt from '{}'".format(model_path_len))
         ckpt = torch.load(model_path_len)
@@ -91,7 +91,7 @@ def main(opt):
 
         optimizer = optim.Adam(filter(lambda x: x.requires_grad, net_pred.parameters()), lr=opt.lr_now)
 
-        util.save_ckpt({'epoch': 0, 'lr': lr_now, 'err': 0, 'state_dict': net_pred.state_dict(), 'optimizer': optimizer.state_dict()}, 0, dataset="CHI3D",opt=opt)
+        util.save_ckpt({'epoch': 0, 'lr': lr_now, 'err': 0, 'state_dict': net_pred.state_dict(), 'optimizer': optimizer.state_dict()}, 0, dataset="Mocap",opt=opt)
         writer = SummaryWriter(opt.tensorboard)
         mpjpe_flag = 10000
 
@@ -108,7 +108,7 @@ def main(opt):
             for k in ret_train.keys():
                 ret_log = np.append(ret_log, [ret_train[k]])
                 head = np.append(head, [k])
-            util.save_csv_log(opt, head, ret_log, is_create=(epo == 1), file_name="CHI_train_log")
+            util.save_csv_log(opt, head, ret_log, is_create=(epo == 1), file_name="train_log")
             if mpjpe_mean < mpjpe_flag:
                 isbest = True
                 mpjpe_flag = mpjpe_mean
@@ -124,7 +124,7 @@ def main(opt):
                             'err': ret_train['loss_train'],
                             'state_dict': net_pred.state_dict(),
                             'optimizer': optimizer.state_dict()},
-                           epo, dataset="CHI3D",opt=opt,Isbest=isbest)
+                           epo, dataset="Mocap",opt=opt,Isbest=isbest)
         writer.close()
 
     else: #test
@@ -232,7 +232,7 @@ def run_model(nb_kpts, net_pred, batch_size, optimizer=None, data_loader=None, o
             results = {key_exp: {}}
             results[key_exp][ts]={"mpjpe_joi": mpjpe_joi.tolist()}
 
-            with open('{}/CHI_results.json'.format(opt.ckpt), 'w') as w:
+            with open('{}/results.json'.format(opt.ckpt), 'w') as w:
                 json.dump(results, w)
 
         return res_dic
@@ -301,7 +301,7 @@ def eval(opt, net_pred, data_loader, nb_kpts, epo):
         results[key_exp]["vim_joi"]=vim_joi.tolist()
         results[key_exp]["vim_mean"]=vim_mean.tolist()
         # print(mpjpe_joi)
-        with open('{}/CHI_eval_results.json'.format(opt.ckpt), 'a') as w:
+        with open('{}/eval_results.json'.format(opt.ckpt), 'a') as w:
             json.dump(results, w)
             w.write('\n')
 
