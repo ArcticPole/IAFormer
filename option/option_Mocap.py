@@ -41,19 +41,6 @@ class Options:
         self.parser.add_argument('--seq_len', type=int, default=75,
                                  help='frame number each sample')
 
-        "---module option---"
-        self.parser.add_argument('--use_IP', type=bool, default=True)
-        # self.parser.add_argument('--use_IP', type=bool, default=False)
-        self.parser.add_argument('--use_AP', type=bool, default=True)
-        # self.parser.add_argument('--use_AP', type=bool, default=False)
-        self.parser.add_argument('--use_LP', type=bool, default=True)
-        # self.parser.add_argument('--use_LP', type=bool, default=False)
-        self.parser.add_argument('--use_CP', type=bool, default=True)
-        # self.parser.add_argument('--use_CP', type=bool, default=False)
-        self.parser.add_argument('--use_TC', type=bool, default=True)
-        # self.parser.add_argument('--use_TC', type=bool, default=False)
-        
-
 
         "---size option of module---"
         self.parser.add_argument('--num_stage', type=int, default=5, help='for GCN')
@@ -88,14 +75,10 @@ class Options:
         if self.opt.model == 'STAGE_4':
             self.opt.d_model = 16
         
-        log_name = 'exp_{}_{}_in{}_out{}_IP&AP&LP&CP_{}&{}&{}&{}_lr_{}_lrd_{}_bs_{}_ep_{}_{}{}_cb_{}'.format(self.opt.dataset,
+        log_name = 'exp_{}_{}_in{}_out{}_lr_{}_lrd_{}_bs_{}_ep_{}_{}{}_cb_{}'.format(self.opt.dataset,
                                                                                            self.opt.model,
                                                                                            self.opt.frame_in,
                                                                                            self.opt.frame_out,
-                                                                                           self.opt.use_IP,
-                                                                                           self.opt.use_AP,
-                                                                                           self.opt.use_LP,
-                                                                                           self.opt.use_CP,
                                                                                            self.opt.lr_now,
                                                                                            self.opt.lr_decay_rate,
                                                                                            self.opt.batch_size,
@@ -105,7 +88,7 @@ class Options:
                                                                                            self.opt.codebook_size
 
                                                                                            )
-        if log_name == 'exp_Mocap_IAFormer_in50_out25_IP&AP&LP&CP_True&True&True&True_lr_0.01_lrd_0.98_bs_96_ep_80_55_cb_256':
+        if log_name == 'exp_Mocap_IAFormer_in50_out25_lr_0.01_lrd_0.98_bs_96_ep_80_55_cb_256':
             self.opt.mode = 'test'
         self.opt.exp = log_name
 

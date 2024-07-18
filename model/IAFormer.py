@@ -21,11 +21,6 @@ class IAFormer(nn.Module):
     def __init__(self, seq_len, d_model, opt, num_kpt, dataset):
         super(IAFormer, self).__init__()
         self.opt = opt
-        self.use_IP = opt.use_IP
-        self.use_TC = opt.use_TC
-        self.use_AP = opt.use_AP
-        self.use_CP = opt.use_CP
-
 
         self.mid_feature = opt.seq_len
         self.dataset = dataset
@@ -91,7 +86,7 @@ class IAFormer(nn.Module):
 
 
         for i in range(num_person):
-            people_in = input[:, i, :, :].clone().detach()  # (batch_size, keypoints*3, seq_len)
+            people_in = input[:, i, :, :].clone().detach()
             if i == 0:
                 people_feature_all = self.GCNQ1(people_in).unsqueeze(1).clone()
             else:
@@ -149,7 +144,7 @@ class IAFormer(nn.Module):
 
         spacial_loss_pred = torch.mean(torch.norm((predic[:, :, self.opt.frame_in:, :] - gt[:, :, self.opt.frame_in:, :]), dim=3))
         spacial_loss_ori = torch.mean(torch.norm((predic[:, :, :self.opt.frame_in, :] - gt[:, :, :self.opt.frame_in, :]), dim=3))
-        spacial_loss = spacial_loss_pred + spacial_loss_ori * 0.1  # 0.1
+        spacial_loss = spacial_loss_pred + spacial_loss_ori * 0.1
 
         temporal_loss = 0
 
