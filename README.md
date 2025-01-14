@@ -4,12 +4,14 @@ Accepted by European Conference on Computer Vision (ECCV2024)
 ## Overview
 Human Pose Forecasting is a major problem in human intention comprehension that can be addressed through learning the historical poses via deep methods. However, existing methods often lack the modeling of the person's role in the event in multi-person scenes. This leads to limited performance in complicated scenes with variant interactions happening at the same time. In this paper, we introduce the Interaction-Aware Pose Forecasting Transformer (IAFormer) framework to better learn the interaction features. With the key insight that the event often involves only part of the people in the scene, we designed the Interaction Perceptron Module (IPM) to evaluate the human-to-event interaction level. With the interaction evaluation, the human-independent features are extracted with the attention mechanism for interaction-aware forecasting. In addition, an Interaction Prior Learning Module (IPLM) is presented to learn and accumulate prior knowledge of high-frequency interactions, encouraging semantic pose forecasting rather than simple trajectory pose forecasting. We conduct experiments using datasets such as CMU-Mocap, UMPM, CHI3D, Human3.6M, and synthesized crowd datasets. The results demonstrate that our method significantly outperforms state-of-the-art approaches considering scenarios with varying numbers of people.
 
-## Dataset
+## Dataset and Environment
 CMU-Mocap(UPMP) and Synthesized crowd datasets （Mix1 and Mix2）from [TBIFormer](https://github.com/xiaogangpeng/TBIFormer)
 
 Human3.6M from their [official website](http://vision.imar.ro/human3.6m/description.php)
 
 CHI3D from their [official website](https://ci3d.imar.ro/chi3d)
+
+Experiments base on Cuda 11.8 and Python 3.9 （Perhaps not limited to these versions）
 ```
 project_folder/
 ├── data/
@@ -57,7 +59,14 @@ self.data=np.load('../Dataset/Mocap/test_3_75_mocap_umpm.npy')
 # self.data=np.load('../Dataset/Crowd/mix2_10persons.npy')
 ```
 ## Citation
-
+@inproceedings{xiao2025multi,
+  title={Multi-person Pose Forecasting with Individual Interaction Perceptron and Prior Learning},
+  author={Xiao, Peng and Xie, Yi and Xu, Xuemiao and Chen, Weihong and Zhang, Huaidong},
+  booktitle={European Conference on Computer Vision},
+  pages={402--419},
+  year={2025},
+  organization={Springer}
+}
 
 ## Thanks
 [TBIFormer](https://github.com/xiaogangpeng/TBIFormer)
